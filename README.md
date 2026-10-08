@@ -16,7 +16,12 @@
 - 路径：[app3/](app3/)
 - 一个 Node.js 应用，支持生成签到二维码、扫码签到、后台开奖、名单导入导出等功能，适用于培训活动现场。
 
+### 4. 脉脉自动打招呼脚本
+- 路径：[app4/](app4/)
+- 一个 Tampermonkey 油猴脚本，在脉脉人才库页面自动点击「立即沟通」并发送预设话术，提升招聘效率。
+
 ## 技术栈
 
 - app1、app2：独立单页 HTML 应用，原生 HTML/CSS/JavaScript
 - app3：Node.js 18+ 服务端应用（需 `npm install && npm start` 运行）
+- app4：Tampermonkey 用户脚本（JavaScript）
