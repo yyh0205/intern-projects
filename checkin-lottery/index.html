@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>扫码签到抽奖工具</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 24px; color: #1d1d1f; }
+  .container { max-width: 760px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 40px; border: 1px solid #e8e8ed; }
+  h1 { font-size: 24px; margin-bottom: 16px; }
+  h2 { font-size: 18px; margin: 24px 0 8px; }
+  p, li { color: #424245; line-height: 1.7; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  .tag { display: inline-block; background: #e8f0fe; color: #1a73e8; padding: 4px 12px; border-radius: 20px; font-size: 13px; margin-bottom: 16px; }
+  a.back { display: inline-block; margin-top: 24px; color: #1a73e8; text-decoration: none; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="tag">Node.js 服务端应用</span>
+    <h1>扫码签到抽奖工具</h1>
+    <p>一个培训活动现场使用的签到抽奖系统，支持生成签到二维码、扫码签到、后台开奖、名单导入导出等功能。</p>
+    <h2>功能</h2>
+    <ul>
+      <li>生成可直接扫码的签到二维码</li>
+      <li>签到成功后显示"待开奖"，后台开奖后中奖人页面自动显示奖品</li>
+      <li>后台可配置活动标题和页面文案</li>
+      <li>导入公司名单并自动匹配部门、员工类型</li>
+      <li>批量导入签到记录，导出 CSV</li>
+      <li>支持多场独立培训活动，互不影响</li>
+    </ul>
+    <h2>运行方式</h2>
+    <p>需 Node.js 18+ 环境，执行 <code>npm install && npm start</code> 启动，访问 <code>http://localhost:3000</code>。</p>
+    <a class="back" href="../">← 返回项目列表</a>
+  </div>
+</body>
+</html>

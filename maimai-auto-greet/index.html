@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>脉脉自动打招呼脚本</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 24px; color: #1d1d1f; }
+  .container { max-width: 760px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 40px; border: 1px solid #e8e8ed; }
+  h1 { font-size: 24px; margin-bottom: 16px; }
+  h2 { font-size: 18px; margin: 24px 0 8px; }
+  p, li { color: #424245; line-height: 1.7; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  .tag { display: inline-block; background: #fff0f0; color: #d93025; padding: 4px 12px; border-radius: 20px; font-size: 13px; margin-bottom: 16px; }
+  a.back { display: inline-block; margin-top: 24px; color: #1a73e8; text-decoration: none; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="tag">Tampermonkey 油猴脚本</span>
+    <h1>脉脉自动打招呼脚本</h1>
+    <p>在脉脉人才库页面自动点击「立即沟通」并发送预设话术，替代手动逐个打招呼，提升招聘效率。</p>
+    <h2>使用方式</h2>
+    <ul>
+      <li>Chrome 安装 Tampermonkey 扩展</li>
+      <li>新建脚本，粘贴 <code>maimai-auto-greet.user.js</code> 内容并保存</li>
+      <li>打开脉脉人才库页面，右下角会出现红色「一键沟通」按钮</li>
+      <li>点击后自动逐个点击沟通按钮并发送话术，间隔 2 秒</li>
+    </ul>
+    <h2>注意事项</h2>
+    <ul>
+      <li>一次建议不超过 40-50 人，避免触发脉脉风控</li>
+      <li>运行中不要切换标签页或最小化窗口</li>
+      <li>如需修改话术，编辑脚本中 <code>TALK_TEXT</code> 变量即可</li>
+    </ul>
+    <a class="back" href="../">← 返回项目列表</a>
+  </div>
+</body>
+</html>
