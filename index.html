@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>intern-projects</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f5f7;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .container { max-width: 720px; width: 100%; }
+  h1 { font-size: 28px; margin-bottom: 8px; color: #1d1d1f; }
+  p.sub { color: #86868b; margin-bottom: 32px; }
+  .cards { display: grid; gap: 16px; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform .15s, box-shadow .15s;
+    border: 1px solid #e8e8ed;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  .card h2 { font-size: 18px; margin-bottom: 6px; }
+  .card p { color: #86868b; font-size: 14px; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>个人项目集合</h1>
+    <p class="sub">实习期间开发的 Web 应用</p>
+    <div class="cards">
+      <a class="card" href="app1/">
+        <h2>史海长卷 · 华夏历史 3D 百科</h2>
+        <p>基于 Web 3D 技术的中国历史交互式百科</p>
+      </a>
+      <a class="card" href="app2/">
+        <h2>雪梨英语游乐场 · WORD PLAY</h2>
+        <p>英语词汇学习互动应用</p>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
