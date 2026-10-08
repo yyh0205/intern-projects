@@ -20,8 +20,13 @@
 - 路径：[app4/](app4/)
 - 一个 Tampermonkey 油猴脚本，在脉脉人才库页面自动点击「立即沟通」并发送预设话术，提升招聘效率。
 
+### 5. OpenClaw 课程笔记
+- 路径：[app5/](app5/)
+- AI Agent 配置教程笔记，涵盖 SOUL.md / USER.md 的编写方法、工作区组织和 Skill 创建实战。
+
 ## 技术栈
 
 - app1、app2：独立单页 HTML 应用，原生 HTML/CSS/JavaScript
 - app3：Node.js 18+ 服务端应用（需 `npm install && npm start` 运行）
 - app4：Tampermonkey 用户脚本（JavaScript）
+- app5：Markdown 文档笔记
