@@ -1,0 +1,222 @@
+import json
+import re
+import sys
+import zipfile
+from pathlib import Path
+
+
+NAME_KEYS = ["\u59d3\u540d", "\u540d\u5b57", "name"]
+DEPARTMENT_KEYS = ["\u90e8\u95e8", "\u5355\u4f4d", "department"]
+TYPE_KEYS = [
+    "\u5458\u5de5\u7c7b\u578b",
+    "\u4eba\u5458\u7c7b\u522b",
+    "\u5de5\u4f5c\u7c7b\u522b",
+    "\u7c7b\u578b",
+    "\u8eab\u4efd",
+    "employeetype",
+]
+
+
+def decode_text_bytes(data: bytes) -> str:
+    if not data:
+        return ""
+    for encoding in ("utf-8-sig", "utf-16", "gb18030", "gbk", "utf-8", "latin1"):
+        try:
+            return data.decode(encoding)
+        except Exception:
+            continue
+    return ""
+
+
+def normalize_text(value) -> str:
+    return str(value or "").strip()
+
+
+def split_line(line: str):
+    parts = [item.strip() for item in re.split(r"[\t,|，；;]+|\s{2,}", line.strip())]
+    return [item for item in parts if item]
+
+
+def contains_any(text: str, keys) -> bool:
+    lowered = text.lower()
+    return any(key in text or key in lowered for key in keys)
+
+
+def normalize_employee_type(value: str) -> str:
+    text = normalize_text(value)
+    if not text:
+        return "\u672a\u63d0\u4f9b"
+    lowered = text.lower()
+    if "\u5b9e\u4e60" in text or "intern" in lowered:
+        return "\u5b9e\u4e60\u751f"
+    if "\u6b63\u804c" in text or "\u6b63\u5f0f" in text or "full" in lowered:
+        return "\u6b63\u804c"
+    return text
+
+
+def looks_like_header(values) -> bool:
+    joined = "".join(values)
+    return contains_any(joined, NAME_KEYS) or contains_any(joined, DEPARTMENT_KEYS)
+
+
+def row_to_triplet(row):
+    values = [normalize_text(cell) for cell in row]
+    values = [cell for cell in values if cell]
+    if len(values) < 2:
+        return None
+    if looks_like_header(values):
+        return None
+
+    name = values[0]
+    department = values[1] if len(values) > 1 else "\u672a\u63d0\u4f9b"
+    employee_type = values[2] if len(values) > 2 else "\u672a\u63d0\u4f9b"
+    if not name:
+        return None
+    return [name, department or "\u672a\u63d0\u4f9b", normalize_employee_type(employee_type)]
+
+
+def rows_to_text(rows):
+    normalized = []
+    for row in rows:
+        triplet = row_to_triplet(row)
+        if not triplet:
+            continue
+        normalized.append("\t".join(triplet))
+    return "\n".join(normalized)
+
+
+def extract_from_text(text: str) -> str:
+    rows = []
+    for line in str(text or "").splitlines():
+        values = split_line(line)
+        if len(values) >= 2:
+            rows.append(values[:3])
+    return rows_to_text(rows)
+
+
+def extract_json_text(data):
+    if isinstance(data, list):
+        rows = []
+        for item in data:
+            if isinstance(item, dict):
+                name = ""
+                department = ""
+                employee_type = ""
+                for key, value in item.items():
+                    key_text = normalize_text(key)
+                    if not name and contains_any(key_text, NAME_KEYS):
+                        name = normalize_text(value)
+                    elif not department and contains_any(key_text, DEPARTMENT_KEYS):
+                        department = normalize_text(value)
+                    elif not employee_type and contains_any(key_text, TYPE_KEYS):
+                        employee_type = normalize_text(value)
+                if name and department:
+                    rows.append([name, department, employee_type or "\u672a\u63d0\u4f9b"])
+            elif isinstance(item, (list, tuple)) and len(item) >= 2:
+                rows.append(list(item[:3]))
+        return rows_to_text(rows)
+    if isinstance(data, dict):
+        for key in ("data", "rows", "list", "items"):
+            if key in data:
+                return extract_json_text(data[key])
+    return ""
+
+
+def extract_xlsx(path: Path) -> str:
+    from openpyxl import load_workbook
+
+    workbook = load_workbook(path, read_only=False, data_only=True)
+    rows = []
+    for sheet in workbook.worksheets:
+        for row in sheet.iter_rows(values_only=True):
+            rows.append(list(row))
+    return rows_to_text(rows)
+
+
+def extract_docx(path: Path) -> str:
+    from docx import Document
+
+    doc = Document(path)
+    rows = []
+    for table in doc.tables:
+        for row in table.rows:
+            rows.append([cell.text.strip() for cell in row.cells])
+
+    if rows:
+        return rows_to_text(rows)
+
+    text = "\n".join(paragraph.text for paragraph in doc.paragraphs)
+    return extract_from_text(text)
+
+
+def extract_pdf(path: Path) -> str:
+    from pypdf import PdfReader
+
+    reader = PdfReader(str(path))
+    text = "\n".join(page.extract_text() or "" for page in reader.pages)
+    return extract_from_text(text)
+
+
+def extract_zip_text(path: Path) -> str:
+    chunks = []
+    with zipfile.ZipFile(path, "r") as zipped:
+        for name in zipped.namelist():
+            if not name.lower().endswith((".csv", ".txt", ".tsv", ".json", ".xml", ".md")):
+                continue
+            try:
+                chunks.append(extract_from_text(decode_text_bytes(zipped.read(name))))
+            except Exception:
+                continue
+    return "\n".join(chunk for chunk in chunks if chunk.strip())
+
+
+def parse_file(path_str: str):
+    path = Path(path_str)
+    ext = path.suffix.lower()
+    data = path.read_bytes()
+
+    if ext in (".xlsx", ".xlsm", ".xltx", ".xltm"):
+        return {"text": extract_xlsx(path)}
+    if ext == ".docx":
+        return {"text": extract_docx(path)}
+    if ext == ".pdf":
+        return {"text": extract_pdf(path)}
+    if ext == ".json":
+        try:
+            return {"text": extract_json_text(json.loads(decode_text_bytes(data)))}
+        except Exception:
+            return {"text": extract_from_text(decode_text_bytes(data))}
+    if ext == ".zip":
+        return {"text": extract_zip_text(path)}
+
+    if ext in (".csv", ".txt", ".tsv", ".md", ".log", ".xml", ".yaml", ".yml"):
+        return {"text": extract_from_text(decode_text_bytes(data))}
+
+    text = decode_text_bytes(data)
+    extracted = extract_from_text(text)
+    if extracted.strip():
+        return {"text": extracted}
+
+    if zipfile.is_zipfile(path):
+        zip_text = extract_zip_text(path)
+        if zip_text.strip():
+            return {"text": zip_text}
+
+    return {"text": "", "error": "Could not detect roster content"}
+
+
+def main():
+    if len(sys.argv) < 2:
+        print(json.dumps({"text": "", "error": "Missing file path"}, ensure_ascii=False))
+        return
+
+    try:
+        result = parse_file(sys.argv[1])
+    except Exception as error:
+        result = {"text": "", "error": str(error)}
+
+    print(json.dumps(result, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    main()

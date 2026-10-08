@@ -12,6 +12,11 @@
 - 路径：[app2/](app2/)
 - 一个英语词汇学习互动应用。
 
+### 3. 扫码签到抽奖工具
+- 路径：[app3/](app3/)
+- 一个 Node.js 应用，支持生成签到二维码、扫码签到、后台开奖、名单导入导出等功能，适用于培训活动现场。
+
 ## 技术栈
 
-每个项目均为独立的单页 HTML 应用，使用原生 HTML/CSS/JavaScript 构建，可直接在浏览器中打开运行。
+- app1、app2：独立单页 HTML 应用，原生 HTML/CSS/JavaScript
+- app3：Node.js 18+ 服务端应用（需 `npm install && npm start` 运行）
