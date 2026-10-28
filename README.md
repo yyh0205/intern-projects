@@ -24,9 +24,9 @@
 - 路径：[openclaw-notes/](openclaw-notes/)
 - AI Agent 配置教程笔记，涵盖 SOUL.md / USER.md 的编写方法、工作区组织和 Skill 创建实战。
 
-### 6. 雪梨英语 · HRBP 实习生工作台
+### 6. HRBP 工作台
 - 路径：[hrbp-workbench/](hrbp-workbench/)
-- 覆盖招聘、培训、协作与工作总结的 HRBP 实习生工作台（演示数据）。
+- 覆盖招聘、培训、协作与工作总结的 HRBP 工作台（演示数据）。
 
 ## 技术栈
 
