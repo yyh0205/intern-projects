@@ -1,0 +1,12 @@
+# Local environment overrides and credentials
+.env
+.env.*
+!.env.example
+*.local
+
+# Supabase local runtime files
+supabase/.temp/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
