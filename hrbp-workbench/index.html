@@ -2,12 +2,12 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>雪梨英语 · HRBP 实习生工作台</title>
+  <title>HRBP 工作台</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css?v=20261028-recruit" />
 </head>
 <body>
-<div class="app-shell"><aside class="sidebar"><div class="brand"><div class="brand-mark">🐱</div><div><strong>雪梨英语</strong><span>HRBP 工作台</span></div></div><nav>
+<div class="app-shell"><aside class="sidebar"><div class="brand"><div class="brand-mark">🐱</div><div><strong>HRBP 工作台</strong><span>个人工作台</span></div></div><nav>
 <button class="nav-item active" data-view="overview"><span>⌂</span><b>工作概览</b></button><button class="nav-item" data-view="links"><span>↗</span><b>快捷入口</b></button><button class="nav-item" data-view="tasks"><span>✓</span><b>本周任务</b></button><button class="nav-item" data-view="recruit"><span>◎</span><b>招聘看板</b></button><button class="nav-item" data-view="training"><span>▤</span><b>培训数据</b></button><button class="nav-item" data-view="summary"><span>▥</span><b>日报 / 周报</b></button>
 </nav><div class="sidebar-foot"><div class="week-label">W36 · 2026</div><div class="sync"><i></i> 已自动保存</div></div></aside>
 <main class="main"><header class="topbar"><div><p class="eyebrow" id="pageKicker">WORKSPACE</p><h1 id="pageTitle">早上好，Maggie <span>✦</span></h1><p class="sub" id="pageDescription">这是你的一周工作入口，今天也要顺利推进呀。</p></div><div class="top-actions"><button class="cat-mascot" id="catMascot" type="button" aria-label="播放猫叫"><span>🐱</span><small>喵～</small></button><button class="icon-btn" id="themeBtn">◐</button><button class="avatar">M</button></div></header>
@@ -25,6 +25,6 @@
 <section class="view" id="view-training"><div class="page-toolbar"><div><p class="eyebrow">LEARNING INSIGHTS</p><h2>培训数据</h2><p>记录每场培训的参与结构：正职、实习生、线上与现场。</p></div><button class="primary-btn" id="addTrainingBtn">＋ 录入数据</button></div><section class="panel"><div class="training-summary" id="trainingSummary"></div><div class="training-viz" id="trainingViz"></div><div class="table-wrap"><table><thead><tr><th>培训主题</th><th>日期</th><th>参与总数</th><th>正职</th><th>实习生</th><th>线上</th><th>现场</th><th>操作</th></tr></thead><tbody id="trainingTable"></tbody></table></div></section></section>
 <section class="view" id="view-summary"><div class="page-toolbar"><div><p class="eyebrow">DAILY & WEEKLY NOTES</p><h2>日报 / 周报总结</h2><p>每个工作日记录日报，每周五沉淀本周周报。</p></div><div class="toolbar-actions"><button class="ghost-btn" id="generateDailyBtn">✦ 生成今日日报</button><button class="ghost-btn" id="generateWeeklyBtn">✦ 生成本周周报</button><button class="primary-btn" id="addSummaryBtn">＋ 新建总结</button></div></div><section class="summary-layout"><div class="panel"><div class="summary-tabs" id="summaryTabs"><button class="summary-tab active" data-summary="daily">日报</button><button class="summary-tab" data-summary="weekly">周报</button></div><div id="summaryList" class="summary-list"></div></div><div class="panel summary-guide"><h3>总结小提示</h3><p>日报：自动读取今日任务与招聘进展，并生成明日计划。</p><p>周报：汇总本周任务、候选人、培训数据，并带入周五日报内容。</p><div class="summary-rule"></div><span>生成后可继续编辑，数据仅保存在本地浏览器</span></div></section></section>
 <section id="contactsList" style="display:none"></section><button id="addContactBtn" style="display:none" aria-hidden="true"></button>
-<footer>雪梨英语 HRBP 实习生工作台 <span>·</span> 数据可同步至云端</footer></main></div>
+<footer>HRBP 工作台 <span>·</span> 数据可同步至云端</footer></main></div>
 <div class="modal-backdrop" id="modal"><div class="modal"><div class="modal-head"><h3 id="modalTitle">新增</h3><button class="close-btn" id="modalClose">×</button></div><form id="modalForm"><div id="modalFields"></div><div class="modal-actions"><button type="button" class="ghost-btn" id="cancelBtn">取消</button><button class="primary-btn" type="submit">保存</button></div></form></div></div><div class="toast" id="toast">已保存</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="app.js?v=20261028-recruit"></script>
 </body></html>
