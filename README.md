@@ -8,7 +8,7 @@
 - 路径：[history-3d-encyclopedia/](history-3d-encyclopedia/)
 - 一个基于 Web 3D 技术的中国历史交互式百科应用。
 
-### 2. 雪梨英语游乐场 · WORD PLAY
+### 2. 英语游乐场 · WORD PLAY
 - 路径：[word-play/](word-play/)
 - 一个英语词汇学习互动应用。
 
